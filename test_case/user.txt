@@ -1,3 +1,4 @@
+action, station_id,  bike_type , user_id_string, rent_time
 rent 8 electric 00001 0
 rent 1 lady 00462 1
 rent 6 lady 00125 3

@@ -1,3 +1,4 @@
+station_id ,  num_elec >> num_lady >> num_road
 1 10 10 10
 2 6 6 6
 3 10 5 5
