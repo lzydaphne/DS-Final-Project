@@ -20,9 +20,9 @@ int main()
         int station_num = read_data.get_station_num();
         int revenue_1 = 0;
 
-        int reject_count_1 = 0;       //計算reject的次數
+        int reject_count_1 = 0;       // 計算reject的次數
         int reject_list[user_num][5]; // station_id, bike_type, user_id, rent_time, reject_count
-        //儲存reject的user request
+        // 儲存reject的user request
         int reject_num = 0; // reject_list的index
 
         // ---------------------- part 1 ----------------------
@@ -54,7 +54,7 @@ int main()
                 int user_id;
                 int rent_time;
                 int return_time;
-                int rent_num = 0; //實際rent幾台出去
+                int rent_num = 0; // 實際rent幾台出去
                 int rent_bike_id;
                 reject_num = 0;
                 ofstream ofs;
@@ -99,7 +99,7 @@ int main()
 
                         if (my_heap->isEmpty())
                         {
-                            //該車站沒有這種車
+                            // 該車站沒有這種車
                             cout << "-------------------------- reject --------------------------" << endl;
                             ofs << "reject" << endl;
                             reject_count_1++;
@@ -111,7 +111,7 @@ int main()
                             for (int i = 0; i < reject_num; i++)
                             {
                                 // reject_count
-                                //如果同車站且車種相同，reject_count++
+                                // 如果同車站且車種相同，reject_count++
                                 if (reject_list[i][0] == station_id && reject_list[i][1] == rent_list[rent_num][1])
                                     reject_list[reject_num][4] += 1;
                             }
@@ -121,7 +121,7 @@ int main()
                         }
                         else
                         {
-                            //借出
+                            // 借出
                             cout << "accept" << endl;
                             ofs << "accept" << endl;
                             rent_bike_id = my_heap->extractMin(); // remove(rent) the bike
@@ -279,14 +279,14 @@ int main()
             cout << "-------------------------" << endl;
 
             // variables for transfer
-            int max_reject_station[3]; // electric, lady, road
+            int max_reject_station[3]; // electric, lady, road，這三種車型被拒絕最多次的車站在哪邊?
             int max_reject_count[3];
             int max_num_station[3];
             int max_num[3];
             int transfer_num[3];
             int arrive_time[3];
             my_Algo algo(my_bike_heap);
-
+            //! 紀錄哪一站的拒絕次數reject_num最高=>更多使用者需求
             if (reject_num > 0)
             {
                 // find the station with max reject counts of each bike type (i.e. transfer destination)
@@ -309,7 +309,7 @@ int main()
                         }
                     }
                 }
-
+                //! 找到有最多腳踏車的站點
                 // find the station with max number of each bike at initial (i.e. transfer source)
                 for (int i = 0; i < 3; i++)
                 {
@@ -346,7 +346,7 @@ int main()
                     }
                 }
 
-                // transfer number
+                //! transfer number，決定要轉幾台過去
                 for (int i = 0; i < 3; i++)
                 {
                     if (max_num[i] - max_reject_count[i] >= 3)
@@ -359,7 +359,7 @@ int main()
                     }
                 }
 
-                // arrive time
+                //! arrive time，計算轉運抵達時間
                 for (int i = 0; i < 3; i++)
                 {
                     arrive_time[i] = my_graph.dijkstra(max_num_station[i] - 1, max_reject_station[i] - 1);
